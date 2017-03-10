@@ -1,0 +1,22 @@
+﻿@using CarDealer.Models;
+@model Car
+
+@{
+    ViewBag.Title = "Parts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Detailed List of Car and Parts</h1>
+
+<h2>@Model.Make @Model.Model</h2>
+<h3>Distance Travelled : @Model.TravelledDistance</h3>
+
+<h4>Parts : </h4>
+<ul>
+    @{ 
+        foreach (var part in Model.Parts)
+        {
+            <li>@part.Name - $@part.Price</li>
+        }
+    }
+</ul>

@@ -1,0 +1,34 @@
+﻿@using CarDealer.Models;
+@model Sale
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Distance</th>
+            <th>Customer</th>
+            <th>Price</th>
+            <th>Price with Discount</th>
+            <th>Discount</th>
+        </tr>
+    </thead>
+    @{
+        <tr>
+            <td>@Model.Car.Make</td>
+            <td>@Model.Car.Model</td>
+            <td>@Model.Car.TravelledDistance</td>
+            <td>@Model.Customer.Name</td>
+            <td>@Model.Car.Parts.Sum(p => p.Price)</td>
+            <td>@(Model.Car.Parts.Sum(p => p.Price) - Model.Car.Parts.Sum(p => p.Price) * Model.Discount)</td>
+            <td>@Model.Discount</td>
+        </tr>
+    }
+</table>
