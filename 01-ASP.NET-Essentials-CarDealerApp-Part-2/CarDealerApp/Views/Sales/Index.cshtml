@@ -1,0 +1,30 @@
+﻿@using CarDealer.Models;
+@model IEnumerable<Sale>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>All Sales</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Customer</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+    @{
+        foreach (var sale in Model)
+        {
+            <tr>
+                <td>@sale.Car.Make</td>
+                <td>@sale.Car.Model</td>
+                <td>@sale.Customer.Name</td>
+                <td>@Html.ActionLink("Details", "Details", new { id = sale.Id })</td>
+            </tr>
+        }
+    }
+</table>

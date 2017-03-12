@@ -1,0 +1,44 @@
+﻿@using System.Collections.Generic
+@using CarDealerApp.Models.ViewModels;
+
+@model IEnumerable<PartForCarViewModel>
+
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add a new car with parts</h2>
+
+<form class="form-horizontal" method="post">
+    <label for="make">Make</label>
+    <input class="form-control" required type="text" placeholder="Enter car make..." id="make" name="make"/>
+    <label for="model">Model</label>
+    <input class="form-control" type="text" required placeholder="Enter car model..." id="model" name="model" />
+    <label for="travelleddistance">Distance Travelled</label>
+    <input class="form-control" type="number" required step="1000" min="0" id="travelleddistance" name="travelleddistance"  value="0"/>
+    <label for="part1">Part 1</label>
+    <select name="part1" class="form-control">
+        @foreach (var part in Model)
+        {
+            <option value="@part.Id">@part.Name</option>
+        }
+    </select>
+    <label for="part2">Part 2</label>
+    <select name="part2" class="form-control">
+        @foreach (var part in Model)
+        {
+            <option value="@part.Id">@part.Name</option>
+        }
+    </select>
+    <label for="part3">Part 3</label>
+    <select name="part3" class="form-control">
+        @foreach (var part in Model)
+        {
+            <option value="@part.Id">@part.Name</option>
+        }
+    </select>
+    <br />
+    <input type="submit" value="ADD" class="btn btn-success" />
+    <a href="/Cars/" class="btn btn-danger">CANCEL</a>
+</form>
