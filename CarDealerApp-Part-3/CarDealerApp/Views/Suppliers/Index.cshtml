@@ -1,0 +1,53 @@
+﻿@model IEnumerable<CarDealerApp.Models.ViewModels.SupplierViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    table, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+</style>
+
+<h2>List of Our Suppliers</h2>
+
+<a href="/Suppliers/Add" class="btn btn-primary">New Supplier</a>
+<br />
+<br />
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Importer
+        </th>
+        <th>
+            Number of Parts
+        </th>
+        <th>
+            Actions
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @item.Name
+        </td>
+        <td>
+            @item.Importer
+        </td>
+        <td>
+            @item.NumberOfParts
+        </td>
+        <td>
+            <a href="/Suppliers/Edit/@item.Id">Edit</a> | 
+            <a href="/Suppliers/Delete/@item.Id">Delete</a>
+        </td>
+    </tr>
+}
+</table>
