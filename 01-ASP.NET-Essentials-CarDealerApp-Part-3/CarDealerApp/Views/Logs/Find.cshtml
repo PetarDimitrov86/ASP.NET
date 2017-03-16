@@ -1,0 +1,32 @@
+﻿@model IEnumerable<CarDealerApp.Models.ViewModels.LogViewModel>
+
+@{
+    ViewBag.Title = "Find";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Logs for @Model.First().Username</h2>
+
+<table class="table">
+    <tr>
+        <th>User</th>
+        <th>Operation</th>
+        <th>Modified Table</th>
+        <th>Time</th>
+        <th>Action</th>
+    </tr>
+    @{
+        foreach (var logVM in Model)
+        {
+            <tr>
+                <td>@logVM.Username</td>
+                <td>@logVM.Operation.ToString("G")</td>
+                <td>@logVM.ModifiedTable.ToString("G")</td>
+                <td>@logVM.Date</td>
+                <td>@Html.ActionLink("Delete", "Delete", "Logs", new {id = logVM.Id}, null)</td>
+            </tr>
+        }
+    }
+</table>
+
+<a href="/Logs/Index" class="btn btn-info">Back to all logs</a>

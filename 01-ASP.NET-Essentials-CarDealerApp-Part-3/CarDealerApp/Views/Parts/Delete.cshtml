@@ -1,0 +1,17 @@
+﻿@using CarDealerApp.Models.ViewModels;
+
+@model DeletePartViewModel
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete a Part</h2>
+
+<form method="post" class="form-horizontal">
+    <h3>Are you sure you want to delete <b><i>@Model.Name</i></b> from the Database?</h3>
+    <input type="hidden" value="@Model.Id" name="Id"/>
+    <a href="/Parts" class="btn btn-success">CANCEL</a> 
+    <input type="submit" value="DELETE" class="btn btn-danger"/>
+</form>

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<CarDealer.Models.Car>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Cars Catalog</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-2">
+            <a href="/Cars/Add" class="btn btn-success">Add New Car</a>
+        </div>
+        <div class="col-sm-3 col-sm-offset-7">          
+            <form method="Post" action="/Cars/Find">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="make" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <input class="btn btn-primary" type="submit" value="Find" style="display: inline" />
+                    </span>
+                </div>
+            </form>          
+        </div>
+    </div>
+</div>
+
+<br />
+<table class="table">
+    <tr>
+        <th>
+            Brand
+        </th>
+        <th>
+            Model
+        </th>
+        <th>
+            Distance Travelled
+        </th>
+        <th>
+            Admin
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Make)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Model)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TravelledDistance)
+        </td>
+        <td>
+            <a href="/Cars/@item.Id/Parts">Details</a>
+        </td>
+    </tr>
+}
+</table>

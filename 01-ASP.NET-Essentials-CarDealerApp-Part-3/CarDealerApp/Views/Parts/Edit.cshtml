@@ -1,0 +1,23 @@
+﻿@using CarDealerApp.Models.ViewModels
+
+@model EditPartViewModel
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit <b><i>@Model.Name</i></b>   Details</h2>
+
+<form method="post" class="form-horizontal">
+    <div>
+        <label for="price">Price</label>
+        <input class="form-control" type="number" step="0.01" value="@Model.Price" id="price" name="price">
+    </div>
+    <div>
+        <label for="quantity">Quantity</label>
+        <input class="form-control" type="number" value="@Model.Quantity" min="1" id="quantity" name="quantity" />
+    </div>
+    <br />
+    <input type="hidden" value="@Model.Id" name="id" />
+    <input type="submit" value="Edit" class="btn btn-success" />
+</form>

@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add a new supplier</h2>
+
+<form method="post" class="form-horizontal">
+    <label for="name">Name: </label>
+    <input type="text" id="name" name="name" class="form-control"/>
+    <label for="importer">Is Importer?</label>
+    <input id="importer" type="checkbox" value="true" name="importer">
+    <input type="hidden" value="false" name="importer">
+    <br />
+    <br />
+    <a href="/Suppliers/All" class="btn btn-default">CANCEL</a>
+    <input type="submit" value="Add" class="btn btn-success" />
+</form>
