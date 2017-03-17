@@ -1,0 +1,23 @@
+﻿@using CarDealerApp.Models.ViewModels
+
+@model EditPartViewModel
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit <b><i>@Model.Name</i></b> Details</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(vm => vm.Price)
+    @Html.EditorFor(vm => vm.Price, new { htmlAttributes = new { @class = "form-control", step="0.1", type = "number"} })
+
+    @Html.LabelFor(vm => vm.Quantity)
+    @Html.EditorFor(vm => vm.Quantity, new { htmlAttributes = new { @class = "form-control", min="1", type="number" } })
+    <br/>
+
+    @Html.HiddenFor(vm => vm.Id)
+    <input type="submit" value="Edit" class="btn btn-success" />
+    @Html.ActionLink("Back", "Index", "Parts", null, new { @class = "btn btn-danger" })
+}

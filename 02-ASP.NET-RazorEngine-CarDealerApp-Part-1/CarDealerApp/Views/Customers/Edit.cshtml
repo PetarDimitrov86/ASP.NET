@@ -1,0 +1,17 @@
+﻿@using CarDealerApp.Models.ViewModels;
+@model EditCustomerViewModel
+
+<h2>Edit Customer Info</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(vm => vm.Id)
+    @Html.LabelFor(vm => vm.Name)
+    @Html.EditorFor(vm => vm.Name, new { htmlAttributes = new { @class = "form-control"}})
+
+    @Html.LabelFor(vm => vm.Date)
+    @Html.EditorFor(vm => vm.Date, new { htmlAttributes = new { @class = "form-control", type = "date"}})
+    <br />
+    <input class="btn btn-success" type="submit" value="Edit" />
+    @Html.ActionLink("Cancel", "Index", "Customers", new { sortType = "All"}, new { @class = "btn btn-danger" })
+}

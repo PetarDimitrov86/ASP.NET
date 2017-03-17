@@ -1,0 +1,49 @@
+﻿@model CarDealerApp.Models.ViewModels.ReviewSaleViewModel
+
+@{
+    ViewBag.Title = "Review";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Review Sale</h2>
+
+<style>
+    label {
+        width: 110px;
+        text-align: right;
+    }
+    input {
+        text-align: center;
+        margin: 5px;
+        display: inline !important;
+    }
+</style>
+
+@using (Html.BeginForm())
+{    
+    @Html.HiddenFor(vm => vm.CustomerId)
+    @Html.LabelFor(vm => vm.Customer)
+    @Html.TextBoxFor(vm => vm.Customer, null, new { @class = "form-control", @readonly = "readonly"});
+    <br />
+
+    @Html.HiddenFor(vm => vm.CarId)
+    @Html.LabelFor(vm => vm.Car)
+    @Html.TextBoxFor(vm => vm.Car, null, new { @class = "form-control", @readonly = "readonly" });
+    <br />
+
+    <input type="hidden" value="@Model.Discount" name="discount" />
+    @Html.LabelFor(vm => vm.DiscountPercent)
+    @Html.TextBoxFor(vm => vm.DiscountPercent, null, new { @class = "form-control", @readonly = "readonly" });
+    <br/>
+
+    @Html.LabelFor(vm => vm.Price)
+    @Html.TextBoxFor(vm => vm.Price, "{0:0.##}", new { @class = "form-control", @readonly = "readonly" })
+    <br/>
+
+    @Html.LabelFor(vm => vm.FinalPrice)
+    @Html.TextBoxFor(vm => vm.FinalPrice, "{0:0.##}", new { @class = "form-control", @readonly = "readonly" })
+    <br />
+
+    @Html.ActionLink("Cancel", "Add", "Sales", null, new { @class = "btn btn-default" })
+    <input type="submit" class="btn btn-primary" value="Finalize" />
+}

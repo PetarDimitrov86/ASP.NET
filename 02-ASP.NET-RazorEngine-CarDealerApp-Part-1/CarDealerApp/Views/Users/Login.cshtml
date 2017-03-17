@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Please sign in to your account</h2>
+
+<form method="post">
+    <label for="username">Username: </label>
+    <input type="text" placeholder="Enter username here..." id="username" name="username" class="form-control"/>
+
+    <label for="password">Password: </label>
+    <input type="password" placeholder="Enter your password here..." id="password" name="password" class="form-control" />
+
+    <br/>
+    <input type="submit" value="Login" class="btn btn-success"/>
+    @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-danger" })
+    <p>Don't have an account? Click @Html.ActionLink("Here", "Register", "Users")</p>
+</form>

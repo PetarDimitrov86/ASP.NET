@@ -1,0 +1,85 @@
+﻿@using CarDealerApp.Models.ViewModels
+@model IEnumerable<LogViewModel>
+
+@{ int logsPerPage = 10;}
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    table, td, tr, th {
+        border: 1px solid black;
+    }
+</style>
+
+<h2>Operation Logs</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <form method="post" action="/Logs/Find">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="username" placeholder="Username...">
+                    <span class="input-group-btn">
+                        <input class="btn btn-primary" type="submit" value="Search Logs" />
+                    </span>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-offset-7 col-sm-2">
+            @Html.ActionLink("Clear All Logs", "ClearAll", "Logs", null, new { @class = "btn btn-warning"})
+        </div>
+    </div>
+</div>
+<br />
+<table class="table">
+    <tr>
+        <th>User</th>
+        <th>Operation</th>
+        <th>Modified Table</th>
+        <th>Time</th>
+        <th>Action</th>
+    </tr>
+    @{
+        foreach (var logVM in Model.Skip((LogViewModel.Page - 1) * logsPerPage).Take(logsPerPage))
+        {
+            <tr>
+                <td>@logVM.Username</td>
+                <td>@logVM.Operation.ToString("G")</td>
+                <td>@logVM.ModifiedTable.ToString("G")</td>
+                <td>@logVM.Date</td>
+                <td>@Html.ActionLink("Delete", "Delete", "Logs", new {id = logVM.Id}, null)</td>
+            </tr>
+        }
+    }
+</table>
+
+<p>Page @LogViewModel.Page of @(Math.Ceiling(Model.Count() / (double)logsPerPage))</p>
+<nav aria-label="Navigate Logs">
+    <ul class="pagination">
+        @if (LogViewModel.Page - 1 > 0)
+        {
+            <li class="page-item">
+                <a class="page-link" href="/Logs/Index/@(LogViewModel.Page - 1)" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+        }
+        @for (int i = 1; i <= Model.Count(); i += logsPerPage)
+        {
+            <li class="page-item"><a class="page-link" href="/Logs/Index/@(i/logsPerPage + 1)">@(i/logsPerPage + 1)</a></li>
+        }
+        @if (LogViewModel.Page <= Model.Count() / logsPerPage)
+        {
+            <li class="page-item">
+                <a class="page-link" href="/Logs/Index/@(LogViewModel.Page + 1)" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        } 
+    </ul>
+</nav>

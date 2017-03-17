@@ -1,0 +1,38 @@
+﻿@using CarDealerApp.Models.ViewModels;
+
+@model IEnumerable<PartViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List Of All Parts</h2>
+
+@Html.ActionLink("Add New Part", "Add", "Parts", null, new { @class = "btn btn-success"} )
+<br /><br />
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Supplier</th>
+        <th>Admin</th>
+    </tr>
+    @{
+        foreach (var part in Model)
+        {
+            <tr>
+                <td>@part.Name</td>
+                <td>@part.Price</td>
+                <td>@part.Quantity</td>
+                <td>@part.SupplierName</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Parts", new { id = part.Id}, null) | 
+                    @Html.ActionLink("Delete", "Delete", "Parts", new { id = part.Id}, null)
+                </td>
+            </tr>
+        }
+    }
+</table>

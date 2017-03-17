@@ -1,0 +1,61 @@
+﻿@using CarDealerApp.CustomExtensions
+
+@model IEnumerable<CarDealerApp.Models.ViewModels.UsersInfoViewModel>
+@{
+    ViewBag.Title = "UsersInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+
+<h3>List of current registered users</h3>
+
+@*
+@Html.Image(imageUrl: "http://placehold.it/350x150", alt: "Sample Image")
+@Html.Image("http://placehold.it/350x150", "Sample Image")
+@Html.Image("http://placehold.it/350x150")
+@Html.Image("http://placehold.it/350x150", width:"30", height:"30")
+@Html.Image("http://placehold.it/350x150", width:"30")
+@Html.Image("http://placehold.it/350x150", width:"350", height:"150")
+*@
+
+@*@Html.YouTubeEmbedder(videoId: "edYCtaNueQY", width: 600, height: 400)
+@Html.YouTubeEmbedder("edYCtaNueQY", 600, 400)
+@Html.YouTubeEmbedder("edYCtaNueQY")
+@Html.YouTubeEmbedder("edYCtaNueQY", 800)
+@Html.YouTubeEmbedder("edYCtaNueQY", height: 400)
+*@
+
+@*
+@Html.TableHelper(Model)
+@Html.TableHelper(Model, "table-striped", "table-bordered")
+@Html.TableHelper(Model, "table-condensed")
+*@
+
+@Html.TableHelper(Model, "table")
+
+@*
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(vm => vm.Name)</th>
+        <th>@Html.DisplayNameFor(vm => vm.Age)</th>
+        <th>@Html.DisplayNameFor(vm => vm.Email)</th>
+        <th>Is Subscribed</th>
+    </tr>
+    @{
+        foreach (var viewModel in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(m => viewModel.Name)</td>
+                <td>@Html.DisplayFor(m => viewModel.Age)</td>
+                <td>@Html.DisplayFor(m => viewModel.Email)</td>
+                <td>@Html.DisplayFor(m => viewModel.IsSubscribed)</td>
+            </tr>
+        }
+    }
+</table>
+*@

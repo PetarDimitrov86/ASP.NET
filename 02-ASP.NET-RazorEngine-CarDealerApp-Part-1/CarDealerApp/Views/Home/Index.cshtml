@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Car Dealer</h1>
+    <p class="lead">Just pick a ride!</p>
+    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<div class="row">
+    <div class="col-md-4" style="background-image: url(https://www.autogeekonline.net/gallery/data/1844/Wayne_Carini_Shop_Call_Autogeek_001.jpg); background-size: cover; color: white">
+        <div style="background-color: rgba(125,125,125,0.8);">
+            <h2>Browse Cars</h2>
+            <p>
+                Inside you will find a catalogue of our cars. Feel free to browse around and contact us if you have any questions. You can register an account for free if you want to have some additional features.
+            </p>
+            <p>
+                @Html.ActionLink("Browse Cars", "Index", "Cars", null, new { @class = "btn btn-default"})
+            </p>
+        </div>
+    </div>
+    <div class="col-md-4" style="background-image: url(http://www.goldenhillfoods.com/upload/suppliers.jpg); background-size: cover; color: white">
+        <div style="background-color: rgba(125,125,125,0.8);">
+            <h2>Suppliers</h2>
+            <p>Inside you will find list of our local/worldwide importers. You will notice that all our suppliers are properly certified and have been with us for a long time. We left their contact details if you want to get in touch.</p>
+            <p>
+                @Html.ActionLink("List Of Suppliers", "Index", "Suppliers", new { type = "none"}, new { @class = "btn btn-default" })
+            </p>
+        </div>      
+    </div>
+    <div class="col-md-4" style="background-image: url(http://www.lenmallen.com/wp-content/uploads/2014/12/man-looking-through-binoculars-600x360.jpg); background-size: cover; color: white">
+        <div style="background-color: rgba(125,125,125,0.8);">
+            <h2>Customer Details</h2>
+            <p>You can get any personal information on anyone you want to stalk. We have not implemented private messaging just yet, but it's planned in the future. No profile pics either, so just plain text, if you are into that.</p>
+            <p>
+                @Html.ActionLink("Customer Info", "Index", "Customers", new { sortType = "All"}, new { @class = "btn btn-default" })
+            </p>
+        </div>
+    </div>
+</div>

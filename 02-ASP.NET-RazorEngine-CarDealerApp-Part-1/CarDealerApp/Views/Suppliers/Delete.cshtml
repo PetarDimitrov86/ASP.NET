@@ -1,0 +1,16 @@
+﻿@using CarDealerApp.Models.ViewModels
+
+@model DeleteSupplierViewModel
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Are you sure you want to delete <b><i>@Model.Name</i></b> from the suppliers' list?</h2>
+
+<form method="post">
+    <input type="hidden" value="@Model.Id" name="id" />
+    <input type="submit" value="Delete" class="btn btn-danger"/>
+    @Html.ActionLink("Cancel", "Index", "Suppliers", new {type = "all"}, new { @class = "btn btn-default"})
+</form>

@@ -1,0 +1,38 @@
+﻿@using CarDealerApp.Models.ViewModels;
+@model AddPartViewModel
+@{
+    IEnumerable<SelectListItem> selectList =
+    from c in Model.Supplier
+    select new SelectListItem
+    {
+        Text = c.Name,
+        Value = c.Id.ToString()
+    };
+}
+
+
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add a new Part</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(vm => vm.Name)
+    @Html.TextBoxFor(vm => vm.Name, new { placeholder = "Enter part name...", @class = "form-control"})
+
+    @Html.LabelFor(vm => vm.Price)
+    @Html.TextBoxFor(vm => vm.Price, "0.00", new { @class = "form-control", type = "number", step = "0.10"})
+
+    @Html.LabelFor(vm => vm.Quantity)
+    @Html.TextBoxFor(vm => vm.Quantity, "1", new { @class = "form-control", type = "number", min = "1"});
+
+    @Html.LabelFor(vm => vm.Supplier)
+    @Html.DropDownListFor(vm => vm.Supplier, Model.Supplier.Select(s => new SelectListItem() { Text = s.Name, Value = s.Id.ToString() }), new { @class = "form-control", size = "10" })
+
+    <br/>
+    <input type="submit" value="Add" class="btn btn-success"/>
+    @Html.ActionLink("Back", "Index", "Parts", null, new {@class = "btn btn-danger"})
+}

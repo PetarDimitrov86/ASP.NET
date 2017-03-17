@@ -1,0 +1,36 @@
+﻿@using CarDealerApp.Models.ViewModels;
+
+@model AddCarViewModel
+
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add a new car with parts</h2>
+@{
+    IEnumerable<SelectListItem> selectList =
+    from c in Model.Parts
+    select new SelectListItem
+    {
+        Text = c.Name,
+        Value = c.Id.ToString()
+    };
+}
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(vm => vm.Make)
+    @Html.TextBoxFor(vm => vm.Make, null, new { @class = "form-control", placeholder = "Enter car make..."})
+
+    @Html.LabelFor(vm => vm.Model)
+    @Html.TextBoxFor(vm => vm.Model, null, new { @class = "form-control", placeholder = "Enter car model..."});
+
+    @Html.LabelFor(vm => vm.TravelledDistance)
+    @Html.TextBoxFor(vm => vm.TravelledDistance, "0", new { @class = "form-control", type = "number", step = "1000", min = "0"})
+
+    @Html.LabelFor(vm => vm.Parts)
+    @Html.ListBoxFor(vm => vm.Parts, selectList, new { size = "20", @class = "form-control",})
+
+    <input type="submit" value="Add" class="btn btn-success"/>
+    @Html.ActionLink("Cancel", "Index", null, new {@class = "btn btn-danger"})
+}
