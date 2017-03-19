@@ -1,0 +1,43 @@
+﻿@model CameraBazaar.App.Models.BindingModels.LoginUserBindingModel
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Log in to your account</h2>
+
+<style>
+    input {
+        display: inline !important;
+    }
+
+    label {
+        width: 130px;
+    }
+</style>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationMessage("WrongUsernamePassword", null, new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(vm => vm.Username)
+        @Html.TextBoxFor(vm => vm.Username, null, new { @class = "form-control" })
+        @Html.ValidationMessageFor(vm => vm.Username, null, new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(vm => vm.Password)
+        @Html.PasswordFor(vm => vm.Password, new {@class = "form-control"})
+        @Html.ValidationMessageFor(vm => vm.Password, null, new {@class = "text-danger"})
+    </div>
+
+    <br />
+    <input type="submit" class="btn btn-success" value="Login" />
+    @Html.ActionLink("Back", "Index", "Home", null, new { @class = "btn btn-danger" })
+}
+
+<p>Dont have an account? Click @Html.ActionLink("HERE", "Register", "Users") to Register for free!</p>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
