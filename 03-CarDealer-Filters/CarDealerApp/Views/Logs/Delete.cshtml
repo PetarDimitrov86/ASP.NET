@@ -1,0 +1,14 @@
+﻿@model CarDealerApp.Models.ViewModels.DeleteLogViewModel
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Are you sure you want to delete the log from <b><i>@Model.Date </i></b> by <b><i>@Model.User</i></b>?</h3>
+
+<form method="post" class="form-horizontal">
+    <input type="hidden" value="@Model.Id" name="Id"/>
+    @Html.ActionLink("Cancel", "Index", "Logs", null, new { @class = "btn btn-warning"})
+    <input type="submit" value="Delete" class="btn btn-danger" />
+</form>

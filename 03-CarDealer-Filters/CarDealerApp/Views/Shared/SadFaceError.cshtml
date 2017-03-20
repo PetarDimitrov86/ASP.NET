@@ -1,0 +1,11 @@
+﻿@model HandleErrorInfo
+@{
+    ViewBag.Title = "SadFaceError";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Sorry, an error occured.</h2>
+
+<h3>@Model.Exception.GetType().Name : @Model.Exception.Message</h3>
+
+<img src="http://www.clipartkid.com/images/452/clipartbest-com-uyhmfp-clipart.png" alt="Sad face" width="100"/>

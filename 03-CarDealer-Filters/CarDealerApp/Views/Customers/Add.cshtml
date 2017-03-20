@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add a new Customer</h2>
+
+<form method="post" class="form-horizontal">
+    <div>
+        <label for="name">Name</label><br />
+        <input class="form-control" type="text" placeholder="Enter Customer Name" id="name" name="name"/>
+    </div>
+    <br />
+    <div>
+        <label for="date">Date Of Birth</label><br />
+        <input class="form-control" type="date" id="date" name="date" />
+    </div>
+    <br />
+    <input class="btn btn-success" type="submit" value="Create"/>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-danger"} )
+</form>

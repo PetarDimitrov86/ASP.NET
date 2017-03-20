@@ -1,0 +1,22 @@
+﻿@model CarDealerApp.Models.ViewModels.AddSaleVMs.AddSaleViewModel
+
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add Sale</h2>
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(vm => vm.CustomerId)
+    @Html.DropDownListFor(vm => vm.CustomerId, Model.CustomerId.Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString()}), new { @class = "form-control", size = "10"})
+
+    @Html.LabelFor(vm => vm.CarId)
+    @Html.DropDownListFor(vm => vm.CarId, Model.CarId.Select(c => new SelectListItem { Text = c.Name, Value = c.Id.ToString() }), new { @class = "form-control", size = "10" })
+
+    @Html.LabelFor(vm => vm.Discount)
+    @Html.DropDownListFor(vm => vm.Discount, Model.Discount.Select(d => new SelectListItem { Text = $"{d.ToString()}%", Value = d.ToString() }), new { @class = "form-control", size = "5" })
+
+    <input type="submit" class="btn btn-success" value="Review" />
+    @Html.ActionLink("Cancel", "Index", "Sales", null, new { @class = "btn btn-danger" })
+}

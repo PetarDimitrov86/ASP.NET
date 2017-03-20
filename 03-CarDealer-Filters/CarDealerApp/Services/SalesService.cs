@@ -1,0 +1,93 @@
+﻿namespace CarDealerApp.Services
+{
+    using CarDealer.Data;
+    using System.Linq;
+    using Models.ViewModels;
+    using Models.ViewModels.AddSaleVMs;
+    using CarDealer.Models;
+    using Models.BindingModels;
+
+    public class SalesService
+    {
+        private CarDealerContext context;
+        private LogsService logsService;
+
+        public SalesService()
+        {
+            this.context = new CarDealerContext();
+            this.logsService = new LogsService();
+        }
+
+        public AddSaleViewModel GetAddSaleDetails()
+        {
+            var addSaleVm = new AddSaleViewModel();
+
+            var allCustomers = context.Customers.ToList();
+            var allCars = context.Cars.ToList();
+
+            foreach (var customer in allCustomers)
+            {
+                addSaleVm.CustomerId.Add(new AddSaleCustomerViewModel
+                {
+                    Id = customer.Id,
+                    Name = customer.Name
+                });
+            }
+
+            foreach (var car in allCars)
+            {
+                addSaleVm.CarId.Add(new AddSaleCarViewModel
+                {
+                    Id = car.Id,
+                    Name = $"{car.Make} - {car.Model}"
+                });
+            }
+
+            return addSaleVm;
+        }
+
+        public ReviewSaleViewModel ReviewFinalOffer(AddSaleBindingModel asbm)
+        {
+            Car carToSale = context.Cars.Find(asbm.CarId);
+            Customer customer = context.Customers.Find(asbm.CustomerId);
+            double? price = carToSale.Parts.Sum(p => p.Price);
+
+            string discountPercent = $"{asbm.Discount}%";
+            
+            if (customer.IsYoungDriver)
+            {
+                discountPercent += " (+5%)";
+                asbm.Discount += 5;
+            }
+            double? discountFinal = asbm.Discount/100.0;
+            double? finalPrice = price - price*discountFinal;
+
+            return new ReviewSaleViewModel
+            {
+                Car = $"{carToSale.Make} {carToSale.Model}",
+                Customer = customer.Name,
+                CustomerId = customer.Id,
+                CarId = carToSale.Id,
+                DiscountPercent = discountPercent,
+                Discount = discountFinal,
+                FinalPrice = finalPrice,
+                Price = price
+            };
+        }
+
+        public Sale FinalizeSale(ReviewSaleBindingModel rsbm, CarDealerContext db)
+        {
+            return new Sale
+            {
+                Car = db.Cars.Find(rsbm.CarId),
+                Customer = db.Customers.Find(rsbm.CustomerId),
+                Discount = rsbm.Discount
+            };
+        }
+
+        public void GenerateLog(ModifiedTable modifiedTable, Operation operation, int userId)
+        {
+            this.logsService.GenerateLog(modifiedTable, operation, userId);
+        }
+    }
+}

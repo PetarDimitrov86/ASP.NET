@@ -1,0 +1,21 @@
+﻿@model CarDealerApp.Models.BindingModels.AddSupplierBindingModel
+
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add a new supplier</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(vm => vm.Name)
+    @Html.TextBoxFor(vm => vm.Name, null, new {@class = "form-control"})
+
+    @Html.LabelFor(vm => vm.Importer)
+    @Html.CheckBoxFor(vm => vm.Importer)
+    
+    <br />
+    <input type="submit" value="Add" class="btn btn-success" />
+    @Html.ActionLink("Cancel", "Index", "Suppliers", new { type = "all" }, new { @class = "btn btn-danger" })
+}

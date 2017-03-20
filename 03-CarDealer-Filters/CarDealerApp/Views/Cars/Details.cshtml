@@ -1,0 +1,15 @@
+﻿@using CarDealer.Models
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Car Details</h2>
+
+@{ Car car = (Car) ViewData["car"]; }
+
+<h3>Make : @car.Make</h3>
+<h3>Model : @car.Model</h3>
+<h3>Distance Travelled : @car.TravelledDistance</h3>
+<h3>Number of Parts : @car.Parts.Count</h3>
