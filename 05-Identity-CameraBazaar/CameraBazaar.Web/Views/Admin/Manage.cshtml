@@ -1,0 +1,42 @@
+﻿@model IEnumerable<CameraBazaar.Models.ViewModels.Admin.ManageSellersViewModel>
+@{
+    ViewBag.Title = "Manage";
+}
+<style>
+    th, td, h2 {
+        text-align: center
+    }
+</style>
+
+<h2>Edit Seller Settings</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>@Html.DisplayNameFor(vm => vm.Email)</th>
+        <th>@Html.DisplayNameFor(vm => vm.NumberOfOffers)</th>
+        <th>@Html.DisplayNameFor(vm => vm.CanSell)</th>
+        <th>Manage</th>
+    </tr>
+    @foreach (var seller in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(vm => seller.Email)</td>
+            <td>@Html.DisplayFor(vm => seller.NumberOfOffers)</td>
+            <td>@Html.DisplayFor(vm => seller.CanSell)</td>
+            <td style="width: 150px">
+                @using (Html.BeginForm())
+                {
+                    <input type="hidden" name="Id" value="@seller.Id"/>
+                    if (seller.CanSell)
+                    {
+                        <input type="submit" value="Ban" class="btn btn-danger" style="padding: 0 12px"/>
+                    }
+                    else
+                    {
+                        <input type="submit" value="Unban" class="btn btn-success" style="padding: 0 12px"/>
+                    }
+                }
+            </td>
+        </tr>
+    }
+</table>

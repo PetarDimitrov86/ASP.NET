@@ -1,0 +1,14 @@
+﻿@model DeleteCameraViewModel
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Are you sure you want to delete <b><i>@Model.Make - @Model.Model from your cameras?</i></b></h2>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(vm => vm.CameraId)
+
+    @Html.ActionLink("Cancel", "Details", "Users", new { id = Model.UserId }, new { @class = "btn btn-primary" })
+    <input type="submit" value="Delete" class="btn btn-danger" />
+}
