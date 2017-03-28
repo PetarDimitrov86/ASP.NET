@@ -347,11 +347,17 @@
             switch (result)
             {
                 case SignInStatus.Success:
-                    //always returns null
+            
                     //string currentUserId = User.Identity.GetUserId();
                     //ApplicationUser currentUser = context.Users.First(u => u.Id == currentUserId);
                     //currentUser.LastLoginTime = DateTime.Now;
                     //context.SaveChanges();
+                    
+                    // TEST
+                    //  var user = await UserManager.FindByEmailAsync(loginInfo.Email);
+                    // user.LastLoginTime = DateTime.Now;
+                    //context.SaveChanges();
+                    // TEST
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
