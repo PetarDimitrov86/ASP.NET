@@ -1,0 +1,23 @@
+﻿@model LearningSystem.Models.ViewModels.CourseDetailsVm
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="course-details">
+    <h2>@Model.Name</h2>
+    <h3>@Model.StartDate.Value.ToString("d MMMM yyyy") - @Model.EndDate.Value.ToString("d MMMM yyyy")</h3>
+    <h4>@Html.ActionLink($"{Model.TrailerName}", "Profile", "Students", new { username = Model.TrainerUserName}, null)</h4>
+    <p>@Model.Description</p>
+    <small>Total Students Enrolled : @Model.NumberOfStudentsEnrolled</small>
+    @*&& Model.StartDate > DateTime.Now*@
+    @if (!Model.IsStudentEnrolled && this.User.Identity.IsAuthenticated)
+    {
+        using (Html.BeginForm("Enroll", "Course", FormMethod.Post))
+        {
+            <input type="hidden" value="@Model.Id" name="Id"/>
+            <input type="submit" class="btn btn-primary" value="Enroll"/>
+        }
+    }
+    <br/>
+    @Html.ActionLink("Back", "Index", "Home", null, new { @class = "btn btn-success" })
+</div>

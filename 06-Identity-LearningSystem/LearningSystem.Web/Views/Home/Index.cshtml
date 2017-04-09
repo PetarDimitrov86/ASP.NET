@@ -1,0 +1,16 @@
+﻿@model IEnumerable<LearningSystem.Models.ViewModels.CourseHomepageViewModel>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>SoftUni</h1>
+    <p class="lead">Take a look at our many courses, and feel free to enroll in any of them. Please register first in order to be able to visit most of the site.</p>
+    @using (Html.BeginForm("Search", "Home", FormMethod.Post))
+    {
+            <input type="search" name="courseName" class="form-control" />
+            <input type="submit" value="Find Course" class="btn btn-primary btn-md homepage-search-button" />
+    }
+</div>
+
+@Html.Partial("_CourseDetailsPartial", Model);

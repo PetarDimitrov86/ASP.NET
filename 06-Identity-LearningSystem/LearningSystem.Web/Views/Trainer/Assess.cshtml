@@ -1,0 +1,82 @@
+﻿@using LearningSystem.Models.EntityModels
+@using LearningSystem.Models.ViewModels.Trainer
+@model IEnumerable<AssessStudentViewModel>
+@{
+    ViewBag.Title = "Assess";
+}
+
+<h2>Assess Students</h2>
+
+<table class="table table-striped">
+    <tr>
+        <th>@Html.DisplayNameFor(vm => vm.Name)</th>
+        <th>@Html.DisplayNameFor(vm => vm.Username)</th>
+        <th>@Html.DisplayNameFor(vm => vm.Grade)</th>
+        <th>Exam</th>
+    </tr>
+    @{
+        foreach (var student in Model)
+        {
+            string studentExamFileName = $"/Exams/{student.CourseName.Replace(" ", "_")}-{student.Username}.rar";
+            <tr>
+                <td>@Html.DisplayFor(vm => student.Name)</td>
+                <td>
+                    @Html.DisplayFor(vm => student.Username)
+                </td>
+                @if (AssessStudentViewModel.IsCourseOver)
+                {
+                    if (student.Grade == null)
+                    {
+                        <td>
+                            @using (Html.BeginForm())
+                            {
+                                <input type="hidden" name="student.Id" id="student_Id_@student.Id" value="@student.Id"/>
+                                <input type="hidden" name="student.CourseId" id="student_CourseId_@student.CourseId" value="@student.CourseId"/>
+                                @Html.DropDownListFor(m => student.Grade, Enum.GetNames(typeof(GradeType)).Select(e => new SelectListItem {Text = e}), new {onchange = $"gradeChange({student.Id},{student.CourseId})", id = $"student_Grade_{student.Id}_{student.CourseId}", @class = "grade-dropdown" })
+                            }
+                        </td>
+                    }
+                    else
+                    {
+                        <td>@Html.DisplayFor(vm => student.Grade)</td>
+                    }
+                }
+                else
+                {
+                    <td>N/A</td>
+                }
+                <td>
+                    @if (student.HasSubmittedExam)
+                    {
+                        <a href="@studentExamFileName">Download</a>
+                    }
+                </td>
+            </tr>
+        }
+    }
+</table>
+
+@section scripts{
+    <script type="text/javascript" language="javascript">
+    function gradeChange(studId, courseId) {
+        var finalStudentId = "student_Id_" + studId;
+        var finalCourseId = "student_CourseId_" + courseId;
+        var finalGradeId = "student_Grade_" + studId + "_" + courseId;
+
+        var dd = document.getElementById(finalStudentId);
+        var grade = document.getElementById(finalGradeId);
+        var course = document.getElementById(finalCourseId);
+
+        var url = '/Trainer/Assess/' + course.value;
+        $.ajax({
+            url: url,
+            type: 'POST',
+            datatype: 'json',
+            data: { courseId: course.value, studentId: dd.value, gradeType: grade.value },
+            success: function() {
+                window.location.href = '/Trainer/Assess/' + course.value;
+            }
+        });
+    }
+    </script>
+}

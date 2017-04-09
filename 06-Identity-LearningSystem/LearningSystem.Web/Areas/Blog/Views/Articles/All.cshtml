@@ -1,0 +1,176 @@
+﻿@model IEnumerable<ArticleHomepageViewModel>
+@{
+    ViewBag.Title = "All";
+}
+
+<style>
+    .author-name{
+    line-height:34px;
+    }
+
+    #voting-button{
+        float:right;
+        margin-top:15px;
+    }
+    .add-button {
+        margin: 10px 0;
+    }
+    .panel {
+        margin: 20px 0;
+    }
+    h2 {
+        text-align: center;
+    }
+    #custom-search-input{
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+#custom-search-input input{
+    border: 0;
+    box-shadow: none;
+}
+
+#custom-search-input button{
+    margin: 2px 0 0 0;
+    background: none;
+    box-shadow: none;
+    border: 0;
+    color: #666666;
+    padding: 0 8px 0 10px;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input button:hover{
+    border: 0;
+    box-shadow: none;
+    border-left: solid 1px #ccc;
+}
+
+#custom-search-input .glyphicon-search{
+    font-size: 23px;
+}
+</style>
+
+<div class="container">
+    @if (User.IsInRole("BlogAuthor"))
+    {
+        @Html.ActionLink("Add New Article", "Add", "Articles", null, new { @class = "btn btn-lg btn-info add-button"})
+        <br/>
+    }
+    <div class="row">
+        <div class="col-md-4">
+            @using (Html.BeginForm("Search", "Articles", new { area = "Blog" }, FormMethod.Post))
+            {
+                <div id="custom-search-input">
+                    <div class="input-group col-md-12">
+                        <input type="search" class="form-control input-lg" name="content" placeholder="Search..." />
+                        <span class="input-group-btn">
+                            <button class="btn btn-info btn-lg" type="submit">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    @{
+        foreach (var article in Model)
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    @Html.ActionLink($"{article.AuthorName}", "All", "Articles", new { area = "Blog", authorName = article.AuthorName}, new { @class = "author-name" }) <span> / @article.PublishDate.Value.ToString("d MMMM yyyy")</span>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="btn-group" style="float: right;">
+                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="glyphicon glyphicon-cog"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="@Url.Action("EditArticle", "Articles", new { area ="Blog", id = $"{article.Id}" })"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="@Url.Action("DeleteArticle", "Articles", new { area ="Blog", id = $"{article.Id}" })"><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> Delete</a></li>
+                            </ul>
+                        </div>
+                    }
+                    <div class="clearfx"></div>
+                </div>
+                <div class="panel-body">
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                @if (article.ImageUrl == null)
+                                {
+                                    <img class="media-object" src="http://placehold.it/250x150" alt="Kurt" style="max-width: 250px">
+                                }
+                                else
+                                {
+                                    <img class="media-object" src="@article.ImageUrl" alt="Kurt" style="max-width: 250px">
+                                }
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading">@article.Title</h4>
+                            <p>@article.Content</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+@*<style>
+    .clear {
+        clear: both;
+    }
+
+    .btn-info, .btn-primary {
+        margin-right: 15px;
+        text-transform: uppercase;
+        padding: 10px;
+        display: block;
+        float: left;
+    }
+
+    .btn-info a, .btn-primary a {
+        display: block;
+        text-decoration: none;
+        width: 100%;
+        height: 100%;
+        color: #fff;
+    }
+
+    .more.label {
+        float: right;
+    }
+</style>
+
+<h2>Articles</h2>
+
+<div class="container">
+    <div>
+        @{
+            foreach (var article in Model)
+            {
+                <h1>@article.Title</h1>
+                <p>@article.Content</p>
+                <div>
+                    <div class="more label">
+                        <a href="#">Read more</a>
+                    </div>
+                    <div class="tags">
+                        <span class="btn-primary"><a href="#">@article.AuthorName</a></span>
+                        <span class="btn-info"><a href="#">@article.PublishDate.Value.ToString("d MMMM yyyy")</a></span>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <hr>
+            }
+        }
+    </div>
+</div>*@

@@ -1,0 +1,12 @@
+﻿@model IEnumerable<LearningSystem.Models.ViewModels.CourseHomepageViewModel>
+@{
+    ViewBag.Title = "Search";
+}
+
+@using (Html.BeginForm("Search", "Home", FormMethod.Post))
+{
+    <input type="search" name="courseName" class="form-control homepage-search-button" />
+    <input type="submit" value="Find Course" class="btn btn-primary btn-md homepage-search-button" />
+}
+
+@Html.Partial("_CourseDetailsPartial", Model)

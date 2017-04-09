@@ -1,0 +1,27 @@
+﻿@model IEnumerable<LearningSystem.Models.ViewModels.CourseHomepageViewModel>
+
+@{ int counter = 0; }
+
+<div class="container">
+    @foreach (var course in Model.ToList())
+    {
+        if (counter % 3 == 0)
+        {
+            @:<div class="row">
+        }
+        <div class="col-sm-4 course-homepage">
+            <h3>@Html.ActionLink($"{course.Name}", "Details", "Course", new { id = course.Id}, null)</h3>
+            <p>
+                Starting On : @course.StartDate.Value.ToString("d MMMM yyyy")
+            </p>
+            <p>
+                Trainer : @course.TrainerName
+            </p>
+        </div>
+        if (counter % 3 == 2 || counter == Model.Count() - 1)
+        {
+            @:</div>
+        }
+        counter++;
+    }
+</div>

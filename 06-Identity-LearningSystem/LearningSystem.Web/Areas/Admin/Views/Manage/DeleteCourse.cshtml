@@ -1,0 +1,13 @@
+﻿@model LearningSystem.Models.ViewModels.Admin.DeleteCourseViewModel
+@{
+    ViewBag.Title = "DeleteCourse";
+}
+
+<h3>Are you sure you want to delete <b>@Model.Name</b> from the Database?</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(vm => vm.Id)
+    @Html.ActionLink("Back", "Courses", "Manage", new { area = ""}, new { @class = "btn btn-success"})
+    <input type="submit" value="Delete" class="btn btn-danger"/>
+}

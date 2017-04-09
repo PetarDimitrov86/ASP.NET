@@ -1,0 +1,20 @@
+﻿@model EditArticleViewModel
+@{
+    ViewBag.Title = "DeleteArticle";
+}
+
+<h2>Delete Article</h2>
+
+@using (Html.BeginForm("DeleteArticle", "Articles", FormMethod.Post, new { @class = "form-horizontal", role = "form", area = "Blog" }))
+{
+<hr />
+    @Html.LabelFor(m => m.Title, new { @class = "control-label" })
+    @Html.TextBoxFor(vm => vm.Title, null, new { @class = "form-control", @readonly = "readonly" });
+
+    @Html.LabelFor(m => m.Content, new { @class = "control-label" })
+    @Html.TextAreaFor(m => m.Content, new { @class = "form-control", value = $"{Model.Content}", rows = "15", @readonly = "readonly" })
+
+    @Html.HiddenFor(vm => vm.Id)
+<br/>
+    <input type="submit" value="Delete" class="btn btn-danger" />
+}

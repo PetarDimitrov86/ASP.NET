@@ -1,0 +1,72 @@
+﻿@model LearningSystem.Models.ViewModels.Admin.EditCourseViewModel
+@{
+    ViewBag.Title = "EditCourse";
+}
+
+@using (Html.BeginForm("EditCourse", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <h4>Edit @Model.Name</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, new {@class = "col-md-2 control-label"})
+        <div class="col-md-10">
+            @Html.EditorFor(m => m.Name, new {htmlAttributes = new {@class = "form-control"}})
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Trainer, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <select name="Trainer" id="Trainer" class="form-control">
+                @{
+                    foreach (var trainer in Model.Trainer)
+                    {
+                        if (trainer.Id == Model.TrainerId)
+                        {
+                            <option value="@trainer.Id" selected="selected">@trainer.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@trainer.Id">@trainer.Name</option>
+                        }
+                    }
+                }
+            </select>
+
+            @*@Html.DropDownListFor(m => m.Trainer, Model.Trainer
+                        .Select(t => new SelectListItem
+                        {
+                            Text = t.Name,
+                            Value = t.Id
+                        })
+                        , new { @class = "form-control", })*@
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.StartDate, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(vm => vm.StartDate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.EndDate, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.EditorFor(vm => vm.EndDate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", rows = "10", value = $"{Model.Description}" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @Html.HiddenFor(vm => vm.Id)
+            <input type="submit" value="Edit" class="btn btn-success"/>
+        </div>
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
