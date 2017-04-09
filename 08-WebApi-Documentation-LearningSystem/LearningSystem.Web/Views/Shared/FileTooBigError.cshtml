@@ -1,0 +1,9 @@
+﻿
+@{
+    ViewBag.Title = "FileTooBigError";
+}
+
+<h2>The file that you are trying to upload is over our limit of 20Mbs</h2>
+<h3>Please go back to your profile page and try again!</h3>
+
+@Html.ActionLink("Back to Profile", "Profile", "Students", null, new { @class = "btn btn-success"})

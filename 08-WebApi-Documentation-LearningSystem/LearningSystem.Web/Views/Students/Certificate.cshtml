@@ -1,0 +1,28 @@
+﻿@model LearningSystem.Models.ViewModels.CertificateViewModel
+@{
+    ViewBag.Title = "Certificate";
+}
+
+<style>
+    body {
+        background-color: #C47A23;
+        background-image: url("http://imgh.us/softuni-2.011.jpg"); 
+        background-position: 30px 60px;
+    }
+</style>
+
+<div class="certificate-container">
+    <img src="http://imgh.us/SoftUniLogo_cnv.jpg" alt="SoftUni Logo" width="10%"/>
+    <h1>COURSE CERTIFICATE</h1>
+    <hr class="course-hr"/>
+    <p class="opacity-certificate">This certificate is issued by <b>Software University</b> to acknowledge that
+    </p>
+    <h2>@Model.StudentName</h2>
+    <p>Has successfully completed a course</p>
+    <h3>@Model.CourseName</h3>
+    <h4>Trainer : @Model.TrainerName</h4>
+    <h4>@Model.StartDate.Value.ToString("d MMMM yyyy") - @Model.EndDate.Value.ToString("d MMMM yyyy")</h4>
+    <h5>with grade: @Model.Grade</h5>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <h5>Issued On : @Model.EndDate.Value.AddDays(7).ToString("d MMMM yyyy")</h5>
+</div>

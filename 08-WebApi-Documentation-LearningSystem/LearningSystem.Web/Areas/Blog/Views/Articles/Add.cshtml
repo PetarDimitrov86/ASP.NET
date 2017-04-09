@@ -1,0 +1,39 @@
+﻿@model AddArticleViewModel
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add</h2>
+
+@using (Html.BeginForm("Add", "Articles", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <h4>Add New Article</h4>
+    <hr />
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Title, null, new { @class = "form-control" } )
+        </div>
+    </div>   
+    <div class="form-group">
+        @Html.LabelFor(m => m.ImageUrl, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.ImageUrl, null, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Content, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(m => m.Content, new { @class = "form-control", rows = "15" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Add" class="btn btn-success" />
+        </div>
+    </div>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
