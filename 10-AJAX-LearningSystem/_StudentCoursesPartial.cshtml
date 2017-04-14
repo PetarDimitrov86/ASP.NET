@@ -1,0 +1,51 @@
+﻿@using LearningSystem.Models.EntityModels
+@model LearningSystem.Models.ViewModels.StudentProfileViewModel
+    
+@foreach (var course in Model.Courses)
+{
+    <tr>
+        <td>
+            @if (course.EndDate > DateTime.Now)
+                {
+                    using (Html.BeginForm())
+                    {
+                    <input type="hidden" name="courseId" value="@course.Id" />
+                        <input type="hidden" value="@Model.Id" name="studentId" />
+                        <input type="submit" value="Leave" class="btn btn-danger" />
+                }
+            }
+        </td>
+        <td>@course.Name</td>
+        <td>@course.StartDate</td>
+        <td>@course.EndDate</td>
+
+        <td>
+            @if (course.Grade == null)
+                {
+                @:N/A
+                }
+                else
+                {
+                @course.Grade
+            }
+        </td>
+        <td>
+            @if (course.EndDate.Value.DayOfYear == DateTime.Now.DayOfYear)
+            {
+                using (Html.BeginForm("Upload", "Students", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <input type="hidden" name="Id" value="@course.Id" />
+                        <input type="file" name="exam" />
+                        <input type="submit" value="Upload Exam" />
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                }
+            }
+        </td>
+        <td>
+            @if (course.Grade == GradeType.A || course.Grade == GradeType.B || course.Grade == GradeType.C)
+                { 
+                @Html.ActionLink("Download", "Certificate", "Students", new { gradeId = course.GradeId }, null)
+                }
+        </td>
+    </tr>
+}

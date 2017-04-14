@@ -1,0 +1,40 @@
+﻿@model LearningSystem.Models.ViewModels.StudentProfileViewModel
+@{
+    ViewBag.Title = "Profile";
+}
+
+<h2><b><i>@Model.Name</i></b></h2>
+
+<table class="table table-striped">
+    <tbody id="courses-table">
+        <tr id="table-headers">
+            <th></th>
+            <th>Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Grade</th>
+            <th>Exam Upload</th>
+            <th>Certificate</th>
+        </tr>
+    </tbody>
+    @*@Html.Partial("_StudentCoursesPartial", Model)*@
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+
+        $(document).ready(function () {
+            $.get('/Students/CoursesPartial', function (data) { // Loads content into the 'data' variable.
+                $('#table-headers').after(data); // Injects 'data' after the #mydiv element.
+            });
+        })
+    </script>
+}
+
+@*@Ajax.ActionLink("Show Courses", "CoursesPartial", null, new AjaxOptions
+{
+    HttpMethod = "get",
+    InsertionMode = InsertionMode.InsertAfter,
+    UpdateTargetId = "courses-table",
+}, new { @class = "btn btn-primary"})*@
