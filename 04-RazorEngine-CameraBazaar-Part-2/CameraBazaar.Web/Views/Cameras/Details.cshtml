@@ -1,0 +1,35 @@
+﻿@using CameraBazaar.Web.CustomExtensions
+@model CameraDetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<style>
+    label {
+        width: 150px;
+        text-align: right;
+    }
+</style>
+
+<h2>
+    <b>
+        @Model.Make @Model.Model - $@Model.Price -
+        @{
+            if (Model.InStock)
+            {
+                <span style="color: green">IN STOCK</span>
+            }
+            else
+            {
+                <span style="color: red">OUT OF STOCK</span>
+            }
+        }
+    </b>
+</h2>
+
+<h3>@Html.ActionLink(Model.SellerName, "Details", "Sellers", new { id = Model.SellerId }, null)</h3>
+
+@Html.Image(Model.ImageUrl, $"{Model.Make} {Model.Model}", "400", null)
+
+@Html.DisplayFor(m => m, "CameraDetails")

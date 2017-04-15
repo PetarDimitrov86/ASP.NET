@@ -1,0 +1,53 @@
+﻿@model IEnumerable<GeneralCameraViewModel>
+@{
+    ViewBag.Title = "All";
+}
+<h2>All Cameras</h2>
+
+<style>
+    .card {
+        text-align: center;
+    }
+
+    img {
+        min-height: 150px;
+        max-height: 150px;
+        width: auto;
+    }
+</style>
+
+<div class="container">
+    @{ int counter = 0; }
+    @foreach (var camera in Model)
+    {
+        if (counter % 3 == 0)
+        {
+            @:<div class="card-deck">
+        }
+        <div class="card col-sm-4 thumbnail">
+            <img class="card-img-top" src="@camera.ImageUrl" alt="@camera.Make @camera.Model">
+            <div class="card-block">
+                <h4 class="card-title">@camera.Make @camera.Model</h4>
+                <p class="card-text">$@camera.Price</p>
+            </div>
+            <div class="card-footer">
+                @{
+                    if (camera.InStock)
+                    {
+                        <span style="color: green; font-weight: bold">IN STOCK</span>
+                    }
+                    else
+                    {
+                        <span style="color: red; font-weight: bold">OUT OF STOCK</span>
+                    }
+                }
+            </div>
+            @Html.ActionLink("Details", "Details", "Cameras", new { id = camera.Id }, new { @class = "btn btn-primary" })
+        </div>
+        if (counter % 3 == 2 || counter == Model.Count() - 1)
+        {
+            @:</div>
+        }
+            counter++;
+        }
+</div>
