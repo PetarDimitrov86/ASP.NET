@@ -1,0 +1,21 @@
+﻿@model IEnumerable<CameraBazaar.Models.ViewModels.Admin.AdminEmailViewModel>
+@{
+    ViewBag.Title = "Banned";
+}
+
+<style>
+    h3, h2 {
+        text-align: center
+    }
+</style>
+
+<h2 class="alert alert-danger">You are banned from posting offers on our website!</h2>
+<h3 class="alert alert-info">Please contact one of our very rude administrators via e-mail for some asskissing and maybe, JUST MAYBE, they will unban you (for a nominal fee)</h3>
+
+<p>Admins: </p>
+<ul>
+    @foreach (var admin in Model)
+    {
+        <li><a href="mailto:@admin.Email">@admin.Email</a></li>
+    }
+</ul>

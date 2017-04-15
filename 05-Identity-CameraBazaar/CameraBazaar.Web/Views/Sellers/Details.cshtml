@@ -1,0 +1,112 @@
+﻿@model CameraBazaar.Models.ViewModels.Profile.UserDetailsViewModel
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_ProfileDetailsLayout.cshtml";
+}
+
+<style>
+    label {
+        text-align: right;
+    }
+
+    .card {
+        text-align: center;
+    }
+
+    img {
+        min-height: 150px;
+        max-height: 150px;
+        width: auto;
+    }
+</style>
+
+<h2>
+    <b>
+        @Model.Username
+    </b>
+    @{
+        if (Model.CurrentUserId == Model.SellerId)
+        {
+            @Html.ActionLink("Edit Profile", "Edit", "Sellers", new { id = Model.CurrentUserId }, new { @class = "btn btn-primary" })
+        }
+    }
+    @Html.Action("LastLogin", "Sellers", new { id = Model.SellerId})
+</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-1">
+            @Html.LabelFor(vm => vm.Email)
+        </div>
+        <div class="col-sm-11">
+            <a href="mailto:@Model.Email">@Model.Email</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1">
+            @Html.LabelFor(vm => vm.Username)
+        </div>
+        <div class="col-sm-11">
+            @Html.DisplayFor(vm => vm.Username)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1">
+            @Html.LabelFor(vm => vm.Phone)
+        </div>
+        <div class="col-sm-11">
+            @Html.DisplayFor(vm => vm.Phone)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1">
+            @Html.LabelFor(vm => vm.CamerasInStock)
+        </div>
+        <div class="col-sm-11">
+            @Html.DisplayFor(vm => vm.CamerasInStock) in stock / @Html.DisplayFor(vm => vm.CamerasOutOfStock) out of stock
+        </div>
+    </div>
+    <h3>@Html.LabelFor(vm => vm.UserCameras)</h3>
+    @{
+        int counter = 0;
+        foreach (var camera in Model.UserCameras)
+        {
+            if (counter % 3 == 0)
+            {
+                @:<div class="card-deck">
+            }
+            <div class="card col-sm-4 thumbnail">
+                <img class="card-img-top" src="@camera.ImageUrl" alt="@camera.Make @camera.Model">
+                <div class="card-block">
+                    <h4 class="card-title">@camera.Make @camera.Model</h4>
+                    <p class="card-text">$@camera.Price</p>
+                </div>
+                <div class="card-footer">
+                    @{
+                        if (camera.InStock)
+                        {
+                            <span style="color: green; font-weight: bold">IN STOCK</span>
+                        }
+                        else
+                        {
+                            <span style="color: red; font-weight: bold">OUT OF STOCK</span>
+                        }
+                    }
+                </div>
+                @Html.ActionLink("Details", "Details", "Cameras", new { id = camera.Id }, new { @class = "btn btn-primary" })
+                @{
+                    if (Model.CurrentUserId == Model.SellerId)
+                    {
+                        @Html.ActionLink("Edit", "Edit", "Cameras", new { id = camera.Id }, new { @class = "btn btn-success" })
+                        @Html.ActionLink("Delete", "Delete", "Cameras", new { id = camera.Id }, new { @class = "btn btn-danger", style = "margin:4px" })
+                    }
+                }
+            </div>
+            if (counter % 3 == 2 || counter == Model.UserCameras.Count() - 1)
+            {
+                @:</div>
+            }
+                counter++;
+            }
+    }
+</div>
