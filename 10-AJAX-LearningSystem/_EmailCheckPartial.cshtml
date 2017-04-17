@@ -1,0 +1,6 @@
+﻿@model EmailAvailabilityCheckViewModel
+    
+@if (Model.IsEmailAvailable)
+{
+    <p class="text-danger">Email '@Model.Email' is already taken</p>
+}
